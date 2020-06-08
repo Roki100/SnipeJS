@@ -11,4 +11,5 @@ SnipeJS is an opensource Minecraft name sniper written in JavaScript. License of
 
 ## Changelog
 v.0
-* Project setup
+* Calculates time until snipe
+* Executes function at sniping time
