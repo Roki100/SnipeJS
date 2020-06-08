@@ -2,13 +2,17 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 const args = process.argv.slice(2);
-console.log(args);
-
-const date = new Date();
 
 const snipe = () => {
-  console.log("Sniping...");
-  console.log(new Date() - date);
+  console.log("Sniping!");
 }
 
-setTimeout(snipe, 10000);
+const setTimer = async () => {
+    let uuidReq = await axios.get("https://api.mojang.com/users/profiles/minecraft/"+args[0]);
+    let pastNames = await axios.get("https://api.mojang.com/user/profiles/"+uuidReq.data.id+"/names");
+    let time = pastNames.data[pastNames.data.length-1].changedToAt + 3196800000 - new Date();
+    setTimeout(snipe, time)
+    console.log("Sucess! Sniping in "+time+"ms")
+};
+
+setTimer()
