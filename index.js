@@ -1,6 +1,5 @@
 const axios = require('axios');
-const util = require('./util/util');
-
+const fs = require('fs');
 const args = process.argv.slice(2);
 
 const snipe = () => {
@@ -16,5 +15,7 @@ const setTimer = async () => {
 };
 
 
-util.printTitle()
+//ASCI TITLE
+console.log(fs.readFileSync("./doc/title.txt").toString());
+
 setTimer()
