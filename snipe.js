@@ -1,5 +1,5 @@
 const axios = require('axios');
-const fs = require('fs');
+const util = require('./util');
 const args = process.argv.slice(2);
 
 const snipe = () => {
@@ -9,13 +9,12 @@ const snipe = () => {
 const setTimer = async () => {
     let uuidReq = await axios.get("https://api.mojang.com/users/profiles/minecraft/"+args[0]);
     let pastNames = await axios.get("https://api.mojang.com/user/profiles/"+uuidReq.data.id+"/names");
+    let name = pastNames.data[pastNames.data.length-2].name
     let time = pastNames.data[pastNames.data.length-1].changedToAt + 3196800000 - new Date();
     setTimeout(snipe, time)
-    console.log("Sucess! Sniping in "+time+"ms")
+    console.log("Sucess! Sniping "+name+" in "+time+"ms")
 };
 
-
-//ASCI TITLE
-console.log(fs.readFileSync("./doc/title.txt").toString());
+util.printTitle();
 
 setTimer()
