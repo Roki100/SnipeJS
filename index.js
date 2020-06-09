@@ -1,4 +1,5 @@
 const axios = require('axios');
+const util = require('./util/util');
 
 const args = process.argv.slice(2);
 
@@ -14,4 +15,6 @@ const setTimer = async () => {
     console.log("Sucess! Sniping in "+time+"ms")
 };
 
+
+util.printTitle()
 setTimer()
