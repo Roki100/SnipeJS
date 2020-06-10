@@ -31,6 +31,10 @@ const snipeSetup = async () => {
 //Verifies if credentials for account in config are valid
 const accountSetup = async () => {
   if (config.username == undefined) errorLog("Failed! No Username for Sniper.");
+  if (config.bearer == undefined) errorLog("Failed! No Token for Sniper.");
+  if (config.password == undefined) errorLog("Failed! No Password for Sniper.");
+
+
   let uuidReq = await axios.get("https://api.mojang.com/users/profiles/minecraft/"+config.username);
   if(uuidReq.status != 200){
     if(uuidReq.status == 204) errorLog("Failed! Incorrect username provided for bot.");
