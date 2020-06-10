@@ -54,6 +54,9 @@ const accountSetup = async () => {
 
   if(authRequest.status != 200) errorLog("Failed! Error "+authRequest.status+": "+authRequest.statusText);
 
+  console.log("Security challenges status "+authRequest.status +  ": "+ authRequest.statusText);
+  console.log(authRequest.data);
+
   console.log("Sucess! Credentials for "+config.username+" verified.");
 }
 
