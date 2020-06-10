@@ -4,6 +4,8 @@ const config = require('./config.json')
 
 const args = process.argv.slice(2);
 
+let uuid
+
 const snipe = () => {
   console.log("Sniping!");
 }
@@ -34,6 +36,20 @@ const accountSetup = async () => {
     if(uuidReq.status == 204) errorLog("Failed! Incorrect username provided for bot.");
     else errorLog("Failed! Error "+uuidReq.status+": "+uuidReq.statusText);
   }
+
+  uuid = uuidReq.data.id;
+  let auth = "Bearer " +config.bearer;
+  let authRequest = await axios.get(
+    "https://api.mojang.com/user/security/challenges",
+    {headers: {
+      "Authorization": auth
+    }}
+  ).catch(function (error) {
+    errorLog(error);
+  });
+
+  if(authRequest.status != 200) errorLog("Failed! Error "+authRequest.status+": "+authRequest.statusText);
+
   console.log("Sucess! Credentials for "+config.username+" verified.");
 }
 
