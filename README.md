@@ -20,3 +20,5 @@ SnipeJS is an opensource Minecraft name sniper written in JavaScript. License of
 * Snipe an account using `node index.js [name]`
 
 ***NOTE**: The name inputted into the sniper should be the name the previous owner changed to, not the name you want.*
+
+See full doc in `doc/documentation.md`
