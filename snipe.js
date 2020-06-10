@@ -43,7 +43,7 @@ const accountSetup = async () => {
 
   uuid = uuidReq.data.id;
   let auth = "Bearer " +config.bearer;
-  let authRequest = await axios.get(
+  let getQuestions = await axios.get(
     "https://api.mojang.com/user/security/challenges",
     {headers: {
       "Authorization": auth
@@ -52,10 +52,27 @@ const accountSetup = async () => {
     errorLog(error.response.data);
   });
 
-  if(authRequest.status != 200) errorLog("Failed! Error "+authRequest.status+": "+authRequest.statusText);
+  if(getQuestions.status != 200) errorLog("Failed! Error "+getQuestions.status+": "+getQuestions.statusText);
 
-  console.log("Security challenges status "+authRequest.status +  ": "+ authRequest.statusText);
-  console.log(authRequest.data);
+  console.log("Security challenges Status "+getQuestions.status +  ": "+ getQuestions.statusText);
+
+  let answer = [];
+
+  for(let i=0; i<3; i++){
+    answer.push({
+        id: getQuestions.data[i].answer.id,
+        answer: config.questions[i]
+    });
+  }
+
+  console.log(answer)
+
+  // let answerPost = await axios.post(
+  //   "https://api.mojang.com/user/security/location",
+  //   {headers: {
+  //     "Authorization": auth
+  //   }}
+  // )
 
   console.log("Sucess! Credentials for "+config.username+" verified.");
 }
