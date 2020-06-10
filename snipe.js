@@ -49,7 +49,7 @@ const accountSetup = async () => {
       "Authorization": auth
     }}
   ).catch(function (error) {
-    errorLog(error);
+    errorLog(error.response.data);
   });
 
   if(authRequest.status != 200) errorLog("Failed! Error "+authRequest.status+": "+authRequest.statusText);
