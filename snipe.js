@@ -54,8 +54,6 @@ const accountSetup = async () => {
 
   if(getQuestions.status != 200) errorLog("Failed! Error "+getQuestions.status+": "+getQuestions.statusText);
 
-  console.log("Security challenges Status "+getQuestions.status +  ": "+ getQuestions.statusText);
-
   let answer = [];
 
   for(let i=0; i<3; i++){
@@ -65,14 +63,17 @@ const accountSetup = async () => {
     });
   }
 
-  console.log(answer)
+  let answerPost = await axios.post(
+    "https://api.mojang.com/user/security/location",
+    answer,
+    {headers: {
+      "Authorization": auth
+    }}
+  ).catch(function (error) {
+    errorLog(error.response.data);
+  });
 
-  // let answerPost = await axios.post(
-  //   "https://api.mojang.com/user/security/location",
-  //   {headers: {
-  //     "Authorization": auth
-  //   }}
-  // )
+  if(answerPost.status != 204) errorLog("Failed! Error "+answerPost.status+": "+answerPost.statusText);
 
   console.log("Sucess! Credentials for "+config.username+" verified.");
 }
