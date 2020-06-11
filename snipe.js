@@ -5,9 +5,22 @@ const config = require('./config.json')
 const args = process.argv.slice(2);
 
 let uuid
+let credentials = {}
 
 const snipe = () => {
-  console.log("Sniping!");
+  axios.post(
+    "https://api.mojang.com/user/profile/"+uuid+"/name",
+    credentials,
+    {headers: {
+      "Authorization": auth
+    }}
+  )
+    .then(function (response)){
+      if(response.status == 200) console.log("Name Sniped!");
+    }
+    .catch(function (error) {
+      errorLog(error.response.data);
+    });
 }
 
 const errorLog = (msg) => {
@@ -26,6 +39,7 @@ const snipeSetup = async () => {
     if(time - new Date() < 0) errorLog("Failed! Name is taken.");
     setTimeout(snipe, time - new Date())
     console.log("Sucess! Sniping "+name+" in "+(time - new Date())+"ms")
+    credentials = {name: name, password: config.password}
 };
 
 //Verifies if credentials for account in config are valid
