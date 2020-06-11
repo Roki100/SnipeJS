@@ -4,7 +4,7 @@ const config = require('./config.json')
 
 const args = process.argv.slice(2);
 
-let uuid
+let uuid, auth
 let credentials = {}
 
 const snipe = () => {
@@ -14,13 +14,11 @@ const snipe = () => {
     {headers: {
       "Authorization": auth
     }}
-  )
-    .then(function (response)){
+  ).then(function (response){
       if(response.status == 200) console.log("Name Sniped!");
-    }
-    .catch(function (error) {
+  }).catch(function (error) {
       errorLog(error.response.data);
-    });
+  });
 }
 
 const errorLog = (msg) => {
@@ -56,7 +54,7 @@ const accountSetup = async () => {
   }
 
   uuid = uuidReq.data.id;
-  let auth = "Bearer " +config.bearer;
+  auth = "Bearer " +config.bearer;
   let getQuestions = await axios.get(
     "https://api.mojang.com/user/security/challenges",
     {headers: {
