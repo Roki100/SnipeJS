@@ -35,6 +35,6 @@ You can obtain the bearer token by logging in to minecraft.net and using [EditTh
 * Clone the repository with `git clone https://github.com/Virachoca/SnipeJS.git`
 * Install all dependencies using `npm ci`
 * Create a `config.json`
-* Snipe an account using `node index.js [name]`
+* Snipe an account using `node snipe.js`
 
 See full doc in `doc/documentation.md`
